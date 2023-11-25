@@ -5,9 +5,9 @@
 
 
 # public files
-# /public/uploads/preview/
-# /public/uploads/thumbnail/
-# /public/uploads/original/
+/public/uploads/preview/
+/public/uploads/thumbnail/
+/public/uploads/original/
 
 # Logs
 logs
