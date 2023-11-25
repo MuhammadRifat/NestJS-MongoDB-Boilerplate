@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import * as AWS from 'aws-sdk';
 import { IUploadImage } from './dto/s3.dto';
+import { writeFile } from 'fs/promises';
+import { join } from 'path';
 
 @Injectable()
 export class S3Service {
@@ -51,7 +53,11 @@ export class S3Service {
                         LocationConstraint: process.env.AWS_S3_REGION,
                     },
                 };
-                const data = await this.s3.upload(params).promise();
+                // const data = await this.s3.upload(params).promise();
+
+                // upload on file system
+                const mainDirectory = join('public', 'uploads', directory, image.fileName);
+                const data = await writeFile(mainDirectory, image.buffer);
             });
 
             return images;

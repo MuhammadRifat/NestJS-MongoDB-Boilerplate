@@ -3,7 +3,7 @@ import { UpdateImageLibraryDto } from './dto/update-image-library.dto';
 import { randomInt } from 'crypto';
 import { Model, Types } from 'mongoose';
 import { IPaginate } from 'src/common/dto.common';
-import sharp from 'sharp';
+import * as sharp from 'sharp';
 import { parse } from 'path';
 import { ImageLibrary } from './schema/image-library.schema';
 import { Service } from 'src/common/service.common';
@@ -86,7 +86,7 @@ export class ImageLibraryService extends Service<ImageLibrary> {
 
   // get all image
   async findAll(paginate: IPaginate) {
-    return await this.findAll(paginate);
+    return await this.findByPaginate({}, paginate);
   }
 
   // find image by id

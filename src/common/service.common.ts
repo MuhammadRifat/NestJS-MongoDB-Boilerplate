@@ -20,9 +20,9 @@ export class Service<TDoc> {
     }
 
     // find all documents
-    async findAll(paginate?: IPaginate) {
-        return await this.findByPaginate({}, paginate);
-    }
+    // async findAll(paginate?: IPaginate) {
+    //     return await this.findByPaginate({}, paginate);
+    // }
 
     // find all documents by query
     async findAllByQuery(query: object) {
@@ -71,16 +71,12 @@ export class Service<TDoc> {
 
     // delete one by id
     async removeById(id: Types.ObjectId) {
-        const data = await this.model.findOneAndUpdate({ _id: id, deletedAt: null }, { deletedAt: new Date() }, { new: true });
-
-        return data;
+       return await this.model.findOneAndUpdate({ _id: id, deletedAt: null }, { deletedAt: new Date() }, { new: true });
     }
 
     // delete by query
     async removeByQuery(query: object) {
-        const data = await this.model.updateMany({ ...query, deletedAt: null }, { deletedAt: new Date() });
-
-        return data;
+        return await this.model.updateMany({ ...query, deletedAt: null }, { deletedAt: new Date() });
     }
 
     // push item to an array of the document
