@@ -8,6 +8,7 @@ import { parse } from 'path';
 import { ImageLibrary } from './schema/image-library.schema';
 import { Service } from 'src/common/service.common';
 import { InjectModel } from '@nestjs/mongoose';
+import { S3Service } from 'src/s3/s3.service';
 
 @Injectable()
 export class ImageLibraryService extends Service<ImageLibrary> {

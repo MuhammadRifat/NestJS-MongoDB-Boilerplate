@@ -3,8 +3,8 @@ import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { MongoIdParams, IPaginate } from 'src/common/dto.common';
 import { ImageLibraryService } from './image-library.service';
 
-@Controller('image')
-export class ImageController {
+@Controller('image-library')
+export class ImageLibraryController {
   constructor(private readonly imageLibraryService: ImageLibraryService) { }
 
   @Post()

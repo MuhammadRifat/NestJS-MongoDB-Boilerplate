@@ -7,4 +7,4 @@ export class ImageLibrary extends CommonSchema {
     name: string;
 }
 
-export const imageSchema = SchemaFactory.createForClass(ImageLibrary);
+export const imageLibrarySchema = SchemaFactory.createForClass(ImageLibrary);

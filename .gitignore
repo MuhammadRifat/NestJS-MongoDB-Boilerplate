@@ -1,6 +1,13 @@
 # compiled output
 /dist
 /node_modules
+.env
+
+
+# public files
+/public/uploads/preview/
+/public/uploads/thumbnail/
+/public/uploads/original/
 
 # Logs
 logs
