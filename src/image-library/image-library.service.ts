@@ -122,7 +122,7 @@ export class ImageLibraryService extends Service<ImageLibrary> {
   }
 
   // replace space to underscore
-  fileNameGenerator = (originalName: string) => {
+  private fileNameGenerator = (originalName: string) => {
     const fileName = originalName
       .toLowerCase()
       .trim()

@@ -9,13 +9,13 @@ export class Service<TDoc> {
     constructor(private readonly model: Model<TDoc>) { }
 
     // create new
-    async createOne(createDataDto: object) {
+    protected async createOne(createDataDto: object) {
         const newData = new this.model(createDataDto);
         return await newData.save();
     }
 
     // create many
-    async createMany(createDataDto: TDoc[]) {
+    protected async createMany(createDataDto: TDoc[]) {
         return await this.model.insertMany(createDataDto);
     }
 
@@ -25,22 +25,22 @@ export class Service<TDoc> {
     // }
 
     // find all documents by query
-    async findAllByQuery(query: object) {
+    protected async findAllByQuery(query: object) {
         return await this.model.find({ ...query, deletedAt: null });
     }
 
     // find one document
-    async findOneById(id: Types.ObjectId) {
+    protected async findOneById(id: Types.ObjectId) {
         return await this.model.findOne({ _id: id, deletedAt: null });
     }
 
     // find one document
-    async findOneByQuery(query: object) {
+    protected async findOneByQuery(query: object) {
         return await this.model.findOne({ ...query, deletedAt: null });
     }
 
     // search by property with case-insensitive & any character
-    async searchByAnyCharacter(query: object) {
+    protected async searchByAnyCharacter(query: object) {
         let modifiedQuery = {};
 
         Object.keys(query).map(key => {
@@ -52,7 +52,7 @@ export class Service<TDoc> {
     }
 
     // update one document
-    async updateById(id: Types.ObjectId, updateDataDto: object) {
+    protected async updateById(id: Types.ObjectId, updateDataDto: object) {
         const data = await this.model.findByIdAndUpdate(id, updateDataDto, { new: true });
 
         if (!data) {
@@ -63,24 +63,24 @@ export class Service<TDoc> {
     }
 
     // update one document by query
-    async updateByQuery(query: object, updateDataDto: object) {
+    protected async updateByQuery(query: object, updateDataDto: object) {
         const data = await this.model.findOneAndUpdate(query, updateDataDto, { new: true });
 
         return data;
     }
 
     // delete one by id
-    async removeById(id: Types.ObjectId) {
-       return await this.model.findOneAndUpdate({ _id: id, deletedAt: null }, { deletedAt: new Date() }, { new: true });
+    protected async removeById(id: Types.ObjectId) {
+        return await this.model.findOneAndUpdate({ _id: id, deletedAt: null }, { deletedAt: new Date() }, { new: true });
     }
 
     // delete by query
-    async removeByQuery(query: object) {
+    protected async removeByQuery(query: object) {
         return await this.model.updateMany({ ...query, deletedAt: null }, { deletedAt: new Date() });
     }
 
     // push item to an array of the document
-    async pushItemToArrayByQuery(
+    protected async pushItemToArrayByQuery(
         query: object,
         item: object,
     ) {
@@ -99,7 +99,7 @@ export class Service<TDoc> {
     };
 
     // remove item from an array of the document
-    async removeItemFromArrayByQuery(
+    protected async removeItemFromArrayByQuery(
         query: object,
         item: object,
     ) {
@@ -119,7 +119,7 @@ export class Service<TDoc> {
 
 
     // find by paginate
-    async findByPaginate(query: object = {}, paginate?: IPaginate, lookupStages: any[] = []) {
+    protected async findByPaginate(query: object = {}, paginate?: IPaginate, lookupStages: any[] = []) {
         const page = Math.abs(Number(paginate?.page || 0) || this.DEFAULT_PAGE);
         const limit = Math.abs(Number(paginate?.limit || 0) || this.DEFAULT_LIMIT);
 
@@ -174,7 +174,7 @@ export class Service<TDoc> {
 
 
     // find by query filter and populate
-    async findByQueryFilterAndPopulate({
+    protected async findByQueryFilterAndPopulate({
         query,
         paginate,
         sort,
